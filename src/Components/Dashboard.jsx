@@ -15,11 +15,20 @@ export default class Dashboard extends Component {
     allWithdraws: 0,
   };
 
+  componentDidMount() {
+    const history = localStorage.getItem('history');
+    const historyUnparsed = JSON.parse(history);
+    if (history) {
+      this.setState({ ...historyUnparsed });
+    }
+  }
+
   addTransaction = e => {
-    this.setState({
-      transaction: e.target.value,
-    });
+    this.setState({ transaction: e.target.value });
   };
+
+  addToLocalStorage = () =>
+    localStorage.setItem('history', JSON.stringify(this.state));
 
   notify = notice => toast(notice);
 
@@ -42,12 +51,15 @@ export default class Dashboard extends Component {
         type: e.target.name,
         date: date.toLocaleString('en', options),
       };
-      this.setState(prevState => ({
-        transactions: [...prevState.transactions, newTransaction],
-        balance: prevState.balance + Number(newTransaction.amount),
-        allDeposits: prevState.allDeposits + Number(newTransaction.amount),
-        transaction: '',
-      }));
+      this.setState(
+        prevState => ({
+          transactions: [...prevState.transactions, newTransaction],
+          balance: prevState.balance + Number(newTransaction.amount),
+          allDeposits: prevState.allDeposits + Number(newTransaction.amount),
+          transaction: '',
+        }),
+        () => this.addToLocalStorage(),
+      );
     } else if (this.state.transaction === '0') {
       this.notify('Введите сумму для проведения операции!');
     }
@@ -63,18 +75,22 @@ export default class Dashboard extends Component {
         type: e.target.name,
         date: date.toLocaleString('en', options),
       };
-      this.setState(prevState => ({
-        transactions: [...prevState.transactions, newTransaction],
-        balance: prevState.balance - Number(newTransaction.amount),
-        allWithdraws: prevState.allWithdraws + Number(newTransaction.amount),
-        transaction: '',
-      }));
+      this.setState(
+        prevState => ({
+          transactions: [...prevState.transactions, newTransaction],
+          balance: prevState.balance - Number(newTransaction.amount),
+          allWithdraws: prevState.allWithdraws + Number(newTransaction.amount),
+          transaction: '',
+        }),
+        () => this.addToLocalStorage(),
+      );
     } else if (
       e.target.name === 'Withdraw' &&
       this.state.balance <= this.state.transaction
     ) {
       this.notify('На счету недостаточно средств для проведения операции!');
     }
+    // setTimeout(localStorage.setItem('history', JSON.stringify(this.state)), 2);
   };
 
   render() {
