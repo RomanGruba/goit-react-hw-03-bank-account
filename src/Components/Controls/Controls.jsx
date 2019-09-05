@@ -4,14 +4,16 @@ import transactionType from '../Utils/transactionType';
 import styles from './Controls.module.css';
 
 const Controls = ({ transaction, addTransaction, handleSubmitTransaction }) => (
-  <section className="controls">
+  <section className={styles.controls}>
     <input
+      className={styles.input}
       type="number"
       name="transaction"
       value={transaction}
       onChange={addTransaction}
     />
     <button
+      className={styles.controlBtn}
       type="button"
       onClick={handleSubmitTransaction}
       name={transactionType.deposit}
@@ -19,6 +21,7 @@ const Controls = ({ transaction, addTransaction, handleSubmitTransaction }) => (
       Deposit
     </button>
     <button
+      className={styles.controlBtn}
       type="button"
       onClick={handleSubmitTransaction}
       name={transactionType.withdraw}

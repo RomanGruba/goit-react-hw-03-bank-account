@@ -1,4 +1,4 @@
-section {
+.controls {
   margin: 0 auto;
   width: 1000px;
   text-align: center;
@@ -6,7 +6,7 @@ section {
 }
 
 
-button {
+.controlBtn {
   display: inline-block;
   padding: 0.3em 1.2em;
   margin: 0 0.3em 0.3em 0;
@@ -21,11 +21,11 @@ button {
   transition: all 0.2s;
 }
 
-button:hover {
+.controlBtn:hover {
   background-color: #4095c6;
 }
 
-input {
+.input {
   font-size: 1.5em;
   background: linear-gradient(21deg, #10abff, #1beabd);
   padding: 3px;
