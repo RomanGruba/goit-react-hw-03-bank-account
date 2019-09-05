@@ -1,0 +1,25 @@
+.history {
+  margin: 0 auto;
+  text-align: center;
+  width: 1000px;
+  border-collapse: collapse;
+  border: 1px solid #fff;
+
+}
+
+.column {
+  width: 33.33%;
+}
+
+.row {
+  height: 50px;
+  border-bottom: 1px solid #8eb93d;
+}
+
+.row:nth-child(even) {
+  background-color: #9ddfeb;
+}
+
+.row:nth-child(odd) {
+  background-color: #d2e9a6;
+}
